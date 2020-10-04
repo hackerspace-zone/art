@@ -1,0 +1,105 @@
+<html>
+	<head>
+		<title>A-Frame art projects</title>
+<script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+<script src="sixdof-controls.js"></script>
+<script src="follower.js"></script>
+<script src="wasp.js"></script>
+<script src="snake.js"></script>
+	</head>
+	<body>
+<a-scene vr-mode-ui="enabled: true;" background="color: #000000;" renderer="colorManagement: true;">
+
+	<a-assets>
+		<img id="snake-texture" src="square.png">
+	</a-assets>
+
+	<a-sky color="#800040"></a-sky>
+
+<a-entity
+	position="-10 -10 -20"
+	scale="5 5 5"
+	rotation="0 90 0"
+>
+	<a-entity
+		id="snake"
+		snake="dim:10",
+	></a-entity>
+
+</a-entity>
+
+<a-entity position="40 40 -20">
+<a-box id="wasp" radius="0.15" color="white" wasp=""></a-box>
+<a-sphere radius="0.5" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="green" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="blue" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="cyan" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="purple" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="pink" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="magenta" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.5" color="yellow" follower="target:#wasp"></a-sphere>
+</a-entity>
+
+<!--
+<a-plane rotation="0 0 0" position="0 2 -4" width="1" height="1" material="color:#ff0000"></a-plane>
+-->
+
+<a-entity id="rig"
+	sixdof-controls="
+		lookControl:	#camera;
+		handControl:	#hand-left;
+		turnLeftKey:	ArrowLeft;
+		turnRightKey:	ArrowRight;
+		lookUpKey:	ArrowUp;
+		lookDownKey:	ArrowDown;
+		moveForwardKey:	W;
+		moveLeftKey:	A;
+		moveRightKey:	D;
+		moveBackwardKey: S;
+		moveUpKey:	Q;
+		moveDownKey:	E;
+		moveSpeed:	5;
+		turnSpeed:	100;
+		lookSpeed:	120;
+       	"
+	position="0 1.6 0"
+>
+	<!-- the hands and camera have to be rigged together -->
+	<a-entity
+		id="camera"
+		camera="fov:75;"
+	></a-entity>
+	<a-entity
+		id="hand-left"
+		tracked-controls="controller: 0; idPrefix: OpenVR"
+		hand-controls="hand: left; handModelStyle: lowPoly; color: #800020"
+	></a-entity>
+	<a-entity
+		id="hand-right"
+		hand-controls="hand: right; handModelStyle: lowPoly; color: #200080"
+	></a-entity>
+
+</a-entity>
+
+<a-entity
+	breadcrumb="target:#rig"
+></a-entity>
+<a-light
+	color="white"
+	headlamp="target: #rig"
+></a-light>
+<a-light
+	color="#fff"
+	type="point"
+	angle="10"
+	headlamp="target: #rig"
+></a-light>
+
+<!--
+	<a-light type="directional" color="#FFF" intensity="0.45" position="4 2 1"></a-light>
+	<a-light type="ambient" color="#A8A8A8"></a-light>
+-->
+
+</a-scene>
+	</body>
+</html>
