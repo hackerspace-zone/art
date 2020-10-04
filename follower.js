@@ -4,9 +4,9 @@
 AFRAME.registerComponent('follower', {
 	schema: {
 		target: {type:'selector', default:'#camera', },
-		accel: {type:'number', default:520, },
-		maxvel: {type:'number', default:150, },
-		noise: {type:'number', default:1, },
+		accel: {type:'number', default:100, },
+		maxvel: {type:'number', default:12, },
+		noise: {type:'number', default:2, },
 	},
 
 	init: function()
@@ -28,12 +28,20 @@ AFRAME.registerComponent('follower', {
 		dt /= 1000;
 
 		var pos = this.el.object3D.position;
-
-		// compute the direction unit vector towards the target
-		// and then multipy by the max acceleration 
-		this.delta.copy(this.data.target.object3D.position);
-		this.delta.sub(pos);
-		this.delta.setLength(this.data.accel * dt);
+		if (this.data.target)
+		{
+			// compute the direction unit vector towards the target
+			// and then multipy by the max acceleration 
+			this.delta.copy(this.data.target.object3D.position);
+			this.delta.sub(pos);
+			this.delta.setLength(this.data.accel * dt);
+		} else {
+			// random walk until our target appears
+			let acc = this.data.accel * dt;
+			this.delta.x = (Math.random() - 0.5) * acc;
+			this.delta.y = (Math.random() - 0.5) * acc;
+			this.delta.z = (Math.random() - 0.5) * acc;
+		}
 
 		// update the velocity with the acceleration
 		// and limit the velocty to the maximum
