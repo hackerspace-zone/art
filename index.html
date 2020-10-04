@@ -14,30 +14,59 @@
 		<img id="snake-texture" src="square.png">
 	</a-assets>
 
-	<a-sky color="#800040"></a-sky>
+	<a-sky color="#002080"></a-sky>
 
 <a-entity
 	position="-10 -10 -20"
-	scale="5 5 5"
-	rotation="0 90 0"
+	scale="4 4 4"
+	rotation="-180 0 0"
+	animation="
+		property: rotation;
+		to: 180 0 0;
+		easing: linear;
+		loop: true;
+		dur: 90000;
+	"
+>
+<a-entity
+	rotation="0 0 0"
+	animation="
+		property: rotation;
+		to: 0 360 0;
+		easing: linear;
+		loop: true;
+		dur: 110000;
+	"
 >
 	<a-entity
-		id="snake"
-		snake="dim:10",
+		snake="latest:#wasp; dim:3; speed:500;"
 	></a-entity>
 
-</a-entity>
+<a-entity id="wasp"></a-entity>
 
-<a-entity position="40 40 -20">
-<a-box id="wasp" radius="0.15" color="white" wasp=""></a-box>
-<a-sphere radius="0.5" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="green" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="blue" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="cyan" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="purple" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="pink" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="magenta" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.5" color="yellow" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.01" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<!--
+<a-sphere radius="0.05" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="green" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="blue" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="cyan" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="purple" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="pink" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="magenta" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.05" color="yellow" follower="target:#wasp"></a-sphere>
+-->
+</a-entity>
 </a-entity>
 
 <!--
