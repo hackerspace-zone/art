@@ -10,6 +10,8 @@ AFRAME.registerComponent('snake', {
 
 	init: function()
 	{
+		console.log("creating snake");
+
 		// allocate the array of used locations
 		let dim = this.data.dim;
 		this.used = []
@@ -45,7 +47,7 @@ AFRAME.registerComponent('snake', {
 			if (this.reinit)
 				this.init();
 
-			console.log("time=", time);
+			//console.log("time=", time);
 			this.last_add = time;
 			this.add();
 		}
@@ -84,7 +86,7 @@ AFRAME.registerComponent('snake', {
 
 		// this location is free; add two cubes from
 		// the previous position to this one
-		console.log("new cube ", nx, ny, nz);
+		//console.log("new cube ", nx, ny, nz);
 		this.add_cube(0.5, (this.pos.x + nx) / 2, (this.pos.y + ny) / 2, (this.pos.z + nz) / 2);
 		this.add_cube(0.5, nx, ny, nz);
 
@@ -107,9 +109,10 @@ AFRAME.registerComponent('snake', {
 		cube.setAttribute('height', size);
 		cube.setAttribute('depth', size);
 		cube.setAttribute('material', {
-			src: '#snake-texture',
-			//color: '#c00080',
+			//src: '#snake-texture',
+			color: '#c00080',
 			transparent: true,
+			opacity: 0.0,
 		});
 		cube.setAttribute('animation', {
 			property: "material.opacity",
