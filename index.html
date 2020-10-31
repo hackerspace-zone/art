@@ -6,6 +6,7 @@
 <script src="follower.js"></script>
 <script src="wasp.js"></script>
 <script src="snake.js"></script>
+<script src="irisdoor.js"></script>
 	</head>
 	<body>
 <a-scene vr-mode-ui="enabled: true;" background="color: #000000;" renderer="colorManagement: true;">
@@ -73,6 +74,8 @@
 <a-plane rotation="0 0 0" position="0 2 -4" width="1" height="1" material="color:#ff0000"></a-plane>
 -->
 
+<a-entity irisdoor="radius:5" position="0 2 -2"></a-entity>
+
 <a-entity id="rig"
 	sixdof-controls="
 		lookControl:	#camera;
@@ -92,6 +95,7 @@
 		lookSpeed:	120;
        	"
 	position="0 1.6 0"
+	player-info
 >
 	<!-- the hands and camera have to be rigged together -->
 	<a-entity
