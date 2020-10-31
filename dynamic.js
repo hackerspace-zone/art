@@ -44,7 +44,7 @@ AFRAME.registerComponent('dynamic', {
 		// the entity that created this with the new file.
 		fetch(html_src).then((response) => {
 			if (!response.ok)
-				throw new Error("fetch("+src+") failed");
+				throw new Error("fetch("+html_src+") failed");
 			return response.text();
 		}).then((html) => {
 			// look for any script tags and hoist them to the head,
