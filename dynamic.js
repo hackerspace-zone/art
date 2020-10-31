@@ -27,7 +27,8 @@ AFRAME.registerComponent('dynamic', {
 			// there is an explicit room on the query string;
 			// probably a dev test setup, so do not change host
 		} else
-		if (APP) {
+		if (typeof APP != 'undefined')
+		{
 			// Running under hubs, retrieve the room id from the name
 			if (APP.hub.hub_id)
 				room = APP.hub.hub_id;
