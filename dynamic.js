@@ -11,15 +11,30 @@ AFRAME.registerComponent('dynamic', {
 	init: function()
 	{
 		let url = new URL(document.location);
-		let host = url.host;
+
+		let host = url.searchParams.get('host');
+		if (host)
+			host = host + "/";
+		else
+		if (this.data.host != "")
+			host = this.data.host + "/";
+		else
+			host = url.protocol + "//" + url.host + "/";
+
 		let room = url.searchParams.get('room');
-		if (!room)
+		if (room)
 		{
+			// there is an explicit room on the query string;
+			// probably a dev test setup, so do not change host
+		} else
+		if (APP) {
+			// Running under hubs, retrieve the room id from the name
+			room = APP.hub.hub_id;
+		} else {
 			console.log("NO DYNAMIC CONTENT");
 			return;
 		}
 
-		host = url.protocol + "//" + host + "/"
 		let html_src = host + room + ".html";
 		console.log("loading dynamic content: ", html_src);
 
