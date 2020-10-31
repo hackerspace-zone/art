@@ -5,9 +5,10 @@ include "snake.js"
 include "irisdoor.js"
 -->
 
+<!-- coordinates are negative away from camera, altitude above ground, positive to the left -->
 <a-entity
-	position="-10 -10 -20"
-	scale="4 4 4"
+	position="-32 5 -32"
+	scale="1 1 1"
 	rotation="-180 0 0"
 	animation="
 		property: rotation;
@@ -32,11 +33,6 @@ include "irisdoor.js"
 	></a-entity>
 
 <a-entity id="wasp"></a-entity>
-
-<a-sphere radius="0.01" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
 <a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
 <a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
 <a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
@@ -48,4 +44,8 @@ include "irisdoor.js"
 </a-entity>
 </a-entity>
 
-<a-entity irisdoor="radius:5" position="0 2 -2"></a-entity>
+<a-entity
+	position="-19 3 -19"
+	rotation="0 45 0"
+	irisdoor="blades:11; radius:3;"
+></a-entity>
