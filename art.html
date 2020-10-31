@@ -1,0 +1,52 @@
+<!--
+include "follower.js"
+include "wasp.js"
+include "snake.js"
+include "irisdoor.js"
+-->
+
+<!-- This file is loaded dynamically by adding ?room=art on the end of the URL -->
+<a-entity
+	position="-10 -10 -20"
+	scale="4 4 4"
+	rotation="-180 0 0"
+	animation="
+		property: rotation;
+		to: 180 0 0;
+		easing: linear;
+		loop: true;
+		dur: 90000;
+	"
+>
+<a-entity
+	rotation="0 0 0"
+	animation="
+		property: rotation;
+		to: 0 360 0;
+		easing: linear;
+		loop: true;
+		dur: 110000;
+	"
+>
+	<a-entity
+		snake="latest:#wasp; dim:3; speed:500;"
+	></a-entity>
+
+<a-entity id="wasp"></a-entity>
+
+<a-sphere radius="0.01" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+</a-entity>
+</a-entity>
+
+<a-entity irisdoor="radius:5" position="0 2 -2"></a-entity>

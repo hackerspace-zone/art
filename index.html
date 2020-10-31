@@ -2,79 +2,16 @@
 	<head>
 		<title>A-Frame art projects</title>
 <script src="https://aframe.io/aframe/dist/aframe-master.min.js"></script>
+<script src="dynamic.js"></script>
 <script src="sixdof-controls.js"></script>
-<script src="follower.js"></script>
-<script src="wasp.js"></script>
-<script src="snake.js"></script>
-<script src="irisdoor.js"></script>
+
 	</head>
 	<body>
 <a-scene vr-mode-ui="enabled: true;" background="color: #000000;" renderer="colorManagement: true;">
 
-	<a-assets>
-		<img id="snake-texture" src="square.png">
-	</a-assets>
 
 	<a-sky color="#002080"></a-sky>
-
-<a-entity
-	position="-10 -10 -20"
-	scale="4 4 4"
-	rotation="-180 0 0"
-	animation="
-		property: rotation;
-		to: 180 0 0;
-		easing: linear;
-		loop: true;
-		dur: 90000;
-	"
->
-<a-entity
-	rotation="0 0 0"
-	animation="
-		property: rotation;
-		to: 0 360 0;
-		easing: linear;
-		loop: true;
-		dur: 110000;
-	"
->
-	<a-entity
-		snake="latest:#wasp; dim:3; speed:500;"
-	></a-entity>
-
-<a-entity id="wasp"></a-entity>
-
-<a-sphere radius="0.01" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="white" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
-<!--
-<a-sphere radius="0.05" color="red" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="green" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="blue" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="cyan" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="purple" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="pink" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="magenta" follower="target:#wasp"></a-sphere>
-<a-sphere radius="0.05" color="yellow" follower="target:#wasp"></a-sphere>
--->
-</a-entity>
-</a-entity>
-
-<!--
-<a-plane rotation="0 0 0" position="0 2 -4" width="1" height="1" material="color:#ff0000"></a-plane>
--->
-
-<a-entity irisdoor="radius:5" position="0 2 -2"></a-entity>
+	<a-entity dynamic></a-entity>
 
 <a-entity id="rig"
 	sixdof-controls="
