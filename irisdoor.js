@@ -68,6 +68,7 @@ AFRAME.registerComponent('irisdoor', {
 		var pos = this.el.object3D.position;
 		var min_dist = 10000;
 
+/*
 		// find the closest interactable object
 		for(obj of document.querySelectorAll('.interactable'))
 		{
@@ -75,6 +76,7 @@ AFRAME.registerComponent('irisdoor', {
 			if (min_dist > dist)
 				min_dist = dist;
 		}
+*/
 
 		// find the closest player
 		for(obj of document.querySelectorAll("a-entity[player-info]")) {
