@@ -21,21 +21,18 @@ AFRAME.registerComponent('dynamic', {
 		else
 			host = url.protocol + "//" + url.host + "/";
 
+		// default to allowing the query string room to
+		// override the hub id.
 		let room = url.searchParams.get('room');
-		if (room)
-		{
-			// there is an explicit room on the query string;
-			// probably a dev test setup, so do not change host
-		} else
-		if (typeof APP != 'undefined')
-		{
-			// Running under hubs, retrieve the room id from the name
-			if (APP.hub.hub_id)
-				room = APP.hub.hub_id;
-		} else {
-			console.log("NO DYNAMIC CONTENT");
-			return;
-		}
+
+		// no specified room, check for a hub id
+		if (!room)
+			room = url.searchParams.get('hub_id');
+
+		// try to use the first part of the URL as
+		// a hub_id (assuming this is running under hubs)
+		if (!room)
+			room = url.pathname.split('/')[1];
 
 		let html_src = host + room + ".html";
 		console.log("loading dynamic content: ", html_src);
