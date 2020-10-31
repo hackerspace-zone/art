@@ -29,7 +29,8 @@ AFRAME.registerComponent('dynamic', {
 		} else
 		if (APP) {
 			// Running under hubs, retrieve the room id from the name
-			room = APP.hub.hub_id;
+			if (APP.hub.hub_id)
+				room = APP.hub.hub_id;
 		} else {
 			console.log("NO DYNAMIC CONTENT");
 			return;
