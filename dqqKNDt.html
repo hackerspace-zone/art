@@ -7,10 +7,10 @@ include "hexfloor.js"
 -->
 
 <a-entity
-	position="38 5 0"
+	id="floor"
+	position="38 1.75 0"
 >
 	<a-entity
-		id="floor"
 		hexfloor="radius:1; width:8;"
 		animation="
 			property: rotation;
@@ -25,7 +25,7 @@ include "hexfloor.js"
 <!-- coordinates are negative away from camera, altitude above ground, positive to the left -->
 <a-entity
 	id="snake"
-	position="15.5 5 16.1"
+	position="38 5 0"
 	scale="1 1 1"
 	rotation="-180 0 0"
 	animation="
