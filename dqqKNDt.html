@@ -6,10 +6,21 @@ include "irisdoor.js"
 include "hexfloor.js"
 -->
 
-<a-entity id="floor"
+<a-entity
 	position="-32 2.0 -37"
-	hexfloor=""
-></a-entity>
+>
+	<a-entity
+		id="floor"
+		hexfloor="radius:1; width:16;"
+		animation="
+			property: rotation;
+			to: 0 360 0;
+			easing: linear;
+			loop: true;
+			dur: 600000;
+		"
+	></a-entity>
+</a-entity>
 
 <!-- coordinates are negative away from camera, altitude above ground, positive to the left -->
 <a-entity

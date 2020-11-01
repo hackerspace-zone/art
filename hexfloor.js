@@ -5,7 +5,7 @@
 AFRAME.registerComponent('hexfloor', {
 	schema: {
 		radius: {type:'number', default:1, }, // radius of the hexagons
-		width: {type:'number', default:8, }, // 
+		width: {type:'number', default:8, }, //
 	},
 
 	init: function()
@@ -28,7 +28,7 @@ AFRAME.registerComponent('hexfloor', {
 				div.setAttribute('geometry', {
 					primitive: 'cylinder',
 					segmentsRadial: 6,
-					radius: this.data.radius * 0.95,
+					radius: this.data.radius * 0.98,
 					height: this.data.min,
 				});
 				div.setAttribute('hexfloor-hex', {
@@ -55,25 +55,29 @@ AFRAME.registerComponent('hexfloor-hex', {
 	schema: {
 		min: {type:'number', default:0.1, }, // min height
 		max: {type:'number', default:1.0, }, // max height
-		smoothing: { type:'number', default:64, },
-		max_effect: { type:'number', default:0.5, },
+		smoothing: { type:'number', default:60, },
+		max_effect: { type:'number', default:5, },
 	},
 
 	init: function()
 	{
 		// how much player effect is in place right now
 		this.effect = 0;
+		this.pos = new THREE.Vector3();
+		this.player = new THREE.Vector3();
 	},
 	
 	tick: function(time, dt)
 	{
-		let pos = this.el.object3D.position;
+		this.el.object3D.getWorldPosition(this.pos);
 		let effect = 0;
 
 		// height is based on inverse distance to each player
-		for(obj of document.querySelectorAll("a-entity[player-info]")) {
-			let dist = pos.distanceTo(obj.object3D.position);
-			if (dist == 0)
+		for(obj of document.querySelectorAll("a-entity[player-info]"))
+		{
+			obj.object3D.getWorldPosition(this.player);
+			let dist = this.pos.distanceTo(this.player);
+			if (dist < 0.1)
 				dist = 0.1;
 			effect += 1.0 / dist;
 		}
@@ -88,8 +92,9 @@ AFRAME.registerComponent('hexfloor-hex', {
 			this.effect = effect;
 
 		// compute the new height scale factor from min to max
-		let height = 1.0 + (this.data.max / this.data.min)
+		let height = this.data.min + (this.data.max - this.data.min)
 				* this.effect / this.data.max_effect;
+		let height_scale = height / this.data.min;
 
 		// adjust the z size based on the effect
 /*
@@ -100,7 +105,7 @@ AFRAME.registerComponent('hexfloor-hex', {
 			loop: 0,
 		});
 */
-		this.el.setAttribute('scale', { x:1, y:height, z:1 } );
+		this.el.setAttribute('scale', { x:1, y:height_scale, z:1 } );
 		//console.log(effect, height);
 	},
 });
