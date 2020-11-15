@@ -3,24 +3,21 @@ include "follower.js"
 include "wasp.js"
 include "snake.js"
 include "irisdoor.js"
-include "hexfloor.js"
+include "meeting-button.js"
 -->
 
-<a-entity
-	id="floor"
-	position="45 1.75 0"
->
-	<a-entity
-		hexfloor="radius:1; width:8;"
-		animation="
-			property: rotation;
-			to: 0 360 0;
-			easing: linear;
-			loop: true;
-			dur: 600000;
-		"
-	></a-entity>
-</a-entity>
+<a-box
+	class="interactable"
+	id="button1"
+	width="0.2"
+	height="0.2"
+	depth="0.2"
+	material="color: #800040;"
+	position="45 2.5 0"
+	meeting-button=""
+	tags="singleActionButton: true;"
+	is-remote-hover-target
+></a-box
 
 <!-- coordinates are negative away from camera, altitude above ground, positive to the left -->
 <a-entity
