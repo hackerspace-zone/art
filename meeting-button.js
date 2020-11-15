@@ -41,6 +41,7 @@ AFRAME.registerComponent('meeting-button', {
 			// the correct angle.  For flat screens the POV might have
 			// been adjusted with the q/e rotate keys, so it works here too.
 			rig.rotation.y = detail.rotation - pov.rotation.y;
+			rig.updateMatrices();
 
 			// convert the rig and pov positions into world coordinates
 			// so that the offset from the pov to the rig can be measured
