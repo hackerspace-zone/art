@@ -33,8 +33,8 @@ AFRAME.registerComponent('meeting-button', {
 			console.log(detail.position, detail.rotation);
 
 			// try rotation first to allow matrix update in teleport
-			player.avatarPOV.object3D.rotation.y = detail.rotation;
 			player.teleportTo(detail.position);
+			player.avatarPOV.object3D.rotation.y = detail.rotation;
 		});
 
 		console.log("meeting button init!")
