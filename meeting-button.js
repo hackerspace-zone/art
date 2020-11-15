@@ -5,7 +5,7 @@
 AFRAME.registerComponent('meeting-button', {
 	schema: {
 		targets: {type:'selector', default:'a-entity[player-info]', },
-		cooldown: {type:'number', default:1000, },
+		cooldown: {type:'number', default:5000, },
 		radius: {type:'number', default:2.0, },
 	},
 
@@ -33,8 +33,12 @@ AFRAME.registerComponent('meeting-button', {
 			console.log(detail.position, detail.rotation);
 
 			player.teleportTo(detail.position);
-			player.avatarRig.object3D.rotation.y = 0;
-			player.avatarPOV.object3D.rotation.y = detail.rotation;
+
+			// for VR the POV rotation is constantly being updated
+			// by the headset.  So we adjust the rig rotation opposite
+			// the desired rotation, which leaves the headset facing
+			// the correct angle
+			player.avatarRig.object3D.rotation.y = detail.rotation - player.avatarPOV.object3D.rotation.y;
 		});
 
 		console.log("meeting button init!")
