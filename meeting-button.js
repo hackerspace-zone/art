@@ -32,9 +32,9 @@ AFRAME.registerComponent('meeting-button', {
 			const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
 			console.log(detail.position, detail.rotation);
 
-			// try rotation first to allow matrix update in teleport
 			player.teleportTo(detail.position);
-			player.avatarPOV.object3D.rotation.y = detail.rotation;
+			player.avatarPOV.object3D.rotation.y = 0;
+			player.avatarRig.object3D.rotation.y = detail.rotation;
 		});
 
 		console.log("meeting button init!")
@@ -124,7 +124,7 @@ AFRAME.registerComponent('meeting-button', {
 						y: pos.y,
 						z: pos.z + r * Math.sin(player_angle),
 					},
-					rotation: player_angle,
+					rotation: player_angle - Math.PI/2,
 				};
 
 				if (clientId == NAF.clientId)
