@@ -34,22 +34,27 @@ AFRAME.registerComponent('meeting-button', {
 			const pov = player.avatarPOV.object3D;
 			const rig = player.avatarRig.object3D;
 
-			// update the position to center the player at the point,
-			// not the center of their VR space.  for flat screens the POV
-			// position is 0, so this is a NOP.
-			this.position.x = detail.position.x - pov.position.x;
-			this.position.y = detail.position.y - pov.position.y;
-			this.position.z = detail.position.z - pov.position.z;
-			console.log(this.position, detail.rotation);
-
-			player.teleportTo(this.position);
-
 			// for VR the POV rotation is constantly being updated
 			// by the headset.  So we adjust the rig rotation opposite
 			// the desired rotation, which leaves the headset facing
 			// the correct angle.  For flat screens the POV might have
 			// been adjusted with the q/e rotate keys, so it works here too.
 			rig.rotation.y = detail.rotation - pov.rotation.y;
+			const sy = Math.sin(rig.rotation.y);
+			const cy = Math.cos(rig.rotation.y);
+
+			// we have to rotate the POV frame to match the world frame
+			// when we update the position to center the player at the point,
+			// not the center of their VR space.  for flat screens the POV
+			// position is 0, so this is a NOP.
+			this.position.x = detail.position.x - (pov.position.x * cy - pov.position.z * sy);
+			this.position.y = detail.position.y - pov.position.y;
+			this.position.z = detail.position.z - (pov.position.x * sy + pov.position.z * cy);
+
+			console.log(detail.position, pov.position, this.position, detail.rotation, rig.rotation.y);
+
+			player.teleportTo(this.position);
+
 		});
 
 		console.log("meeting button init!")
@@ -156,4 +161,9 @@ function players()
 {
 	const players = document.querySelectorAll("a-entity[player-info]");
 	return players;
+}
+
+function meeting()
+{
+	document.querySelectorAll("#button1")[0].components["meeting-button"].meeting()
 }
