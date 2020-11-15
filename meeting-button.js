@@ -40,8 +40,13 @@ AFRAME.registerComponent('meeting-button', {
 			// the desired rotation, which leaves the headset facing
 			// the correct angle.  For flat screens the POV might have
 			// been adjusted with the q/e rotate keys, so it works here too.
-			rig.rotation.y = detail.rotation - pov.rotation.y;
-			rig.updateMatrices();
+			// rig.rotation.y = ... doesn't seem to update the matrices until
+			// the next cycle, so use the slower set attribute here
+			player.avatarRig.setAttribute("rotation", {
+				x: 0,
+				y: (detail.rotation - pov.rotation.y) * 180 / Math.PI ,
+				z: 0,
+			});
 
 			// convert the rig and pov positions into world coordinates
 			// so that the offset from the pov to the rig can be measured
