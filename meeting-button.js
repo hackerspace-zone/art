@@ -17,6 +17,7 @@ AFRAME.registerComponent('meeting-button', {
 		this.was_available = 0;
 		this.onClick = this.onClick.bind(this);
 		this.el.object3D.addEventListener('interact', this.onClick);
+		this.position = new THREE.Vector3();
 
 		NAF.connection.subscribeToDataChannel("player_move", (sender,type,detail,target) => {
 			//console.log(sender,type,detail,target);
@@ -30,15 +31,25 @@ AFRAME.registerComponent('meeting-button', {
 
 			// Message for us: Get the avatar rig and relocate it
 			const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
-			console.log(detail.position, detail.rotation);
+			const pov = player.avatarPOV.object3D;
+			const rig = player.avatarRig.object3D;
 
-			player.teleportTo(detail.position);
+			// update the position to center the player at the point,
+			// not the center of their VR space.  for flat screens the POV
+			// position is 0, so this is a NOP.
+			this.position.x = detail.position.x - pov.position.x;
+			this.position.y = detail.position.y - pov.position.y;
+			this.position.z = detail.position.z - pov.position.z;
+			console.log(this.position, detail.rotation);
+
+			player.teleportTo(this.position);
 
 			// for VR the POV rotation is constantly being updated
 			// by the headset.  So we adjust the rig rotation opposite
 			// the desired rotation, which leaves the headset facing
-			// the correct angle
-			player.avatarRig.object3D.rotation.y = detail.rotation - player.avatarPOV.object3D.rotation.y;
+			// the correct angle.  For flat screens the POV might have
+			// been adjusted with the q/e rotate keys, so it works here too.
+			rig.rotation.y = detail.rotation - pov.rotation.y;
 		});
 
 		console.log("meeting button init!")
