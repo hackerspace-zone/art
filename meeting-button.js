@@ -18,6 +18,7 @@ AFRAME.registerComponent('meeting-button', {
 		this.onClick = this.onClick.bind(this);
 		this.el.object3D.addEventListener('interact', this.onClick);
 		this.position = new THREE.Vector3();
+		this.rig_position = new THREE.Vector3();
 
 		NAF.connection.subscribeToDataChannel("player_move", (sender,type,detail,target) => {
 			//console.log(sender,type,detail,target);
@@ -40,18 +41,22 @@ AFRAME.registerComponent('meeting-button', {
 			// the correct angle.  For flat screens the POV might have
 			// been adjusted with the q/e rotate keys, so it works here too.
 			rig.rotation.y = detail.rotation - pov.rotation.y;
-			const sy = Math.sin(rig.rotation.y);
-			const cy = Math.cos(rig.rotation.y);
 
-			// we have to rotate the POV frame to match the world frame
-			// when we update the position to center the player at the point,
-			// not the center of their VR space.  for flat screens the POV
-			// position is 0, so this is a NOP.
-			this.position.x = detail.position.x - (pov.position.x * cy + pov.position.z * sy);
-			this.position.y = detail.position.y - pov.position.y;
-			this.position.z = detail.position.z - (pov.position.z * cy - pov.position.x * sy);
+			// convert the rig and pov positions into world coordinates
+			// so that the offset from the pov to the rig can be measured
+			rig.getWorldPosition(this.rig_position);
+			pov.getWorldPosition(this.position);
+			this.position.sub(this.rig_position);
 
 			console.log(detail.position, pov.position, this.position, detail.rotation, rig.rotation.y);
+
+			// subtract out the distance from the pov to the current position,
+			// which will shift the desired position to be back at the
+			// center of their VR space.
+			// for flat screens the POV position delta is 0, so this is a NOP.
+			this.position.x = detail.position.x - this.position.x;
+			this.position.y = detail.position.y; // y will be fixed by teleportTo()
+			this.position.z = detail.position.z - this.position.z;
 
 			player.teleportTo(this.position);
 
