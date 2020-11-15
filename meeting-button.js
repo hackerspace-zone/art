@@ -33,8 +33,8 @@ AFRAME.registerComponent('meeting-button', {
 			console.log(detail.position, detail.rotation);
 
 			player.teleportTo(detail.position);
-			player.avatarPOV.object3D.rotation.y = 0;
-			player.avatarRig.object3D.rotation.y = detail.rotation;
+			player.avatarRig.object3D.rotation.y = 0;
+			player.avatarPOV.object3D.rotation.y = detail.rotation;
 		});
 
 		console.log("meeting button init!")
