@@ -19,21 +19,22 @@ AFRAME.registerComponent('meeting-button', {
 		this.el.object3D.addEventListener('interact', this.onClick);
 
 		NAF.connection.subscribeToDataChannel("player_move", (sender,type,detail,target) => {
-			console.log(sender,type,detail,target);
+			//console.log(sender,type,detail,target);
 			this.el.sceneEl.emit("player_move", detail);
 		});
 
 		this.el.sceneEl.addEventListener('player_move', (evt) => {
-			console.log(evt);
 			const detail = evt.detail;
 			if (detail.clientId != NAF.clientId)
 				return;
 
 			// Message for us: Get the avatar rig and relocate it
-			const player = document.querySelectorAll("#avatar-rig")[0];
+			const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
+			console.log(detail.position, detail.rotation);
 
-			player.object3D.position.set(detail.position.x, detail.position.y, detail.position.z);
-			player.object3D.rotation.set(detail.rotation.x, detail.rotation.y, detail.rotation.z);
+			// try rotation first to allow matrix update in teleport
+			player.avatarPOV.object3D.rotation.y = detail.rotation;
+			player.teleportTo(detail.position);
 		});
 
 		console.log("meeting button init!")
@@ -104,7 +105,7 @@ AFRAME.registerComponent('meeting-button', {
 
 		const r = this.data.radius;
 		let step = Math.PI * 2 / num;
-		let angle = 0;
+		let angle = Math.random() * Math.PI * 2;
 
 		for(p of players)
 		{
@@ -119,15 +120,11 @@ AFRAME.registerComponent('meeting-button', {
 				const detail = {
 					clientId: clientId,
 					position: {
-						x: pos.x + r * Math.cos(player_angle),
+						x: pos.x - r * Math.cos(player_angle),
 						y: pos.y,
-						z: pos.z - r * Math.sin(player_angle),
+						z: pos.z + r * Math.sin(player_angle),
 					},
-					rotation: {
-						x: 0,
-						y: player_angle + Math.PI,
-						z: 0,
-					},
+					rotation: player_angle,
 				};
 
 				if (clientId == NAF.clientId)
