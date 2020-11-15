@@ -47,9 +47,9 @@ AFRAME.registerComponent('meeting-button', {
 			// when we update the position to center the player at the point,
 			// not the center of their VR space.  for flat screens the POV
 			// position is 0, so this is a NOP.
-			this.position.x = detail.position.x - (pov.position.x * cy - pov.position.z * sy);
+			this.position.x = detail.position.x - (pov.position.x * cy + pov.position.z * sy);
 			this.position.y = detail.position.y - pov.position.y;
-			this.position.z = detail.position.z - (pov.position.x * sy + pov.position.z * cy);
+			this.position.z = detail.position.z - (pov.position.z * cy - pov.position.x * sy);
 
 			console.log(detail.position, pov.position, this.position, detail.rotation, rig.rotation.y);
 
