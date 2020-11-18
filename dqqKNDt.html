@@ -3,6 +3,7 @@ include "follower.js"
 include "wasp.js"
 include "snake.js"
 include "irisdoor.js"
+include "player-move.js"
 include "meeting-button.js"
 -->
 
@@ -22,7 +23,8 @@ include "meeting-button.js"
 		height="0.2"
 		depth="0.2"
 		material="color: #800040;"
-		meeting-button=""
+		meeting-button="cooldown: 1000;"
+		player-move
 		tags="singleActionButton: true;"
 		is-remote-hover-target
 	></a-box>

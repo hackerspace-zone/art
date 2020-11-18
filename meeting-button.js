@@ -1,6 +1,7 @@
 /*
  * Emergency Meeting button that summons all of the avatars
- * to a circle around the button.
+ * to a circle around the button.  The actual motion is handled
+ * by a player-move component.
  */
 AFRAME.registerComponent('meeting-button', {
 	schema: {
@@ -15,58 +16,9 @@ AFRAME.registerComponent('meeting-button', {
 		this.clicktime = 0;
 		this.available = 1;
 		this.was_available = 0;
+		this.pos = new THREE.Vector3();
 		this.onClick = this.onClick.bind(this);
 		this.el.object3D.addEventListener('interact', this.onClick);
-		this.position = new THREE.Vector3();
-		this.rig_position = new THREE.Vector3();
-
-		NAF.connection.subscribeToDataChannel("player_move", (sender,type,detail,target) => {
-			//console.log(sender,type,detail,target);
-			this.el.sceneEl.emit("player_move", detail);
-		});
-
-		this.el.sceneEl.addEventListener('player_move', (evt) => {
-			const detail = evt.detail;
-			if (detail.clientId != NAF.clientId)
-				return;
-
-			// Message for us: Get the avatar rig and relocate it
-			const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
-			const pov = player.avatarPOV.object3D;
-			const rig = player.avatarRig.object3D;
-
-			// for VR the POV rotation is constantly being updated
-			// by the headset.  So we adjust the rig rotation opposite
-			// the desired rotation, which leaves the headset facing
-			// the correct angle.  For flat screens the POV might have
-			// been adjusted with the q/e rotate keys, so it works here too.
-			// rig.rotation.y = ... doesn't seem to update the matrices until
-			// the next cycle, so use the slower set attribute here
-			player.avatarRig.setAttribute("rotation", {
-				x: 0,
-				y: (detail.rotation - pov.rotation.y) * 180 / Math.PI ,
-				z: 0,
-			});
-
-			// convert the rig and pov positions into world coordinates
-			// so that the offset from the pov to the rig can be measured
-			rig.getWorldPosition(this.rig_position);
-			pov.getWorldPosition(this.position);
-			this.position.sub(this.rig_position);
-
-			console.log(detail.position, pov.position, this.position, detail.rotation, rig.rotation.y);
-
-			// subtract out the distance from the pov to the current position,
-			// which will shift the desired position to be back at the
-			// center of their VR space.
-			// for flat screens the POV position delta is 0, so this is a NOP.
-			this.position.x = detail.position.x - this.position.x;
-			this.position.y = detail.position.y; // y will be fixed by teleportTo()
-			this.position.z = detail.position.z - this.position.z;
-
-			player.teleportTo(this.position);
-
-		});
 
 		console.log("meeting button init!")
 	},
@@ -82,15 +34,7 @@ AFRAME.registerComponent('meeting-button', {
 
 		console.log("activated");
 		this.el.emit("activated");
-/*
-		this.el.setAttribute("animation", {
-			property: 'material.opacity',
-			from: 1.0,
-			to: 0.0,
-			dur: 100,
-			loop: 0,
-		});
-*/
+
 		this.el.setAttribute("animation", {
 			property: 'material.opacity',
 			from: 0.0,
@@ -123,12 +67,6 @@ AFRAME.registerComponent('meeting-button', {
 	 */
 	meeting: function()
 	{
-		// this perhaps should be done in world coords, but then
-		// the player also has to be transformed and then it gets weird
-		let pos = new THREE.Vector3();
-		this.el.object3D.getWorldPosition(pos);
-		//let pos = this.el.object3D.position;
-
 		const players = document.querySelectorAll("a-entity[player-info]");
 		const num = players.length;
 		if (num == 0)
@@ -136,43 +74,33 @@ AFRAME.registerComponent('meeting-button', {
 
 		const r = this.data.radius;
 		let step = Math.PI * 2 / num;
-		let angle = Math.random() * Math.PI * 2;
+		let angle = 0; //Math.random() * Math.PI * 2;
 
-		for(p of players)
+		// this should be done in world coords, since the players are in world coords,
+		// but the item that initiats the meeting might be in a nested group
+		this.el.object3D.getWorldPosition(this.pos);
+
+		for(player of players)
 		{
 			// circle around the position of the box,
-			// looking at the box, up is the y axis
-			const player_angle = angle;
-			angle += step;
-
-			NAF.utils.getNetworkedEntity(p).then(player => {
-				const clientId = NAF.utils.getNetworkOwner(player);
-				console.log(clientId);
-				const detail = {
-					clientId: clientId,
-					position: {
-						x: pos.x - r * Math.cos(player_angle),
-						y: pos.y,
-						z: pos.z + r * Math.sin(player_angle),
-					},
-					rotation: player_angle - Math.PI/2,
-				};
-
-				if (clientId == NAF.clientId)
-					this.el.sceneEl.emit("player_move", detail);
-				else
-					NAF.connection.broadcastDataGuaranteed("player_move", detail);
+			// looking at the box, up is the positive y axis.
+			// heading 0 is negative z axis, heading 90 is negative x axis
+			//  0 => z=+1, x=0
+			// 90 => z=0, x=+1
+			this.el.sceneEl.emit("player-move", {
+				clientId: NAF.utils.getNetworkOwner(player),
+				position: {
+					x: this.pos.x + r * Math.sin(angle),
+					y: this.pos.y,
+					z: this.pos.z + r * Math.cos(angle),
+				},
+				rotation: angle, // radians
 			});
 
+			angle += step;
 		}
 	},
 });
-
-function players()
-{
-	const players = document.querySelectorAll("a-entity[player-info]");
-	return players;
-}
 
 function meeting()
 {
