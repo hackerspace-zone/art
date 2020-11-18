@@ -99,6 +99,8 @@ AFRAME.registerComponent('player-move', {
 		rig.position.z = this.position.z;
 		rig.matrixNeedsUpdate = true;
 */
+
+		// maybe we don't need to do the conversion since we've forced the rotation?
 		this.position.x = detail.position.x;
 		this.position.y = detail.position.y;
 		this.position.z = detail.position.z;

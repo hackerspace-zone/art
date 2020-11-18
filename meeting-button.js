@@ -74,7 +74,10 @@ AFRAME.registerComponent('meeting-button', {
 
 		const r = this.data.radius;
 		let step = Math.PI * 2 / num;
-		let angle = 0; //Math.random() * Math.PI * 2;
+
+		// start at the current angle of the first player, which should
+		// be the local player.  that way they don't feel like they move.
+		let angle = players[0].object3D.rotation.y;
 
 		// this should be done in world coords, since the players are in world coords,
 		// but the item that initiats the meeting might be in a nested group
