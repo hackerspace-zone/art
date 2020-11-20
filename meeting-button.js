@@ -8,6 +8,7 @@ AFRAME.registerComponent('meeting-button', {
 		targets: {type:'selector', default:'a-entity[player-info]', },
 		cooldown: {type:'number', default:5000, },
 		radius: {type:'number', default:2.0, },
+		message: {type:'string', default:"EMERGENCY MEETING!" },
 	},
 
 	init: function()
@@ -35,13 +36,7 @@ AFRAME.registerComponent('meeting-button', {
 		console.log("activated");
 		this.el.emit("activated");
 
-		this.el.setAttribute("animation", {
-			property: 'material.opacity',
-			from: 0.0,
-			to: 1.0,
-			dur: this.data.cooldown,
-			loop: 0,
-		});
+		this.el.setAttribute("opacity", 0 );
 
 		// move everyone to a circle around it
 		this.meeting();
@@ -60,6 +55,7 @@ AFRAME.registerComponent('meeting-button', {
 		// the cooldown timer has expired, mark it as available again
 		this.available = true;
 		this.el.emit("available");
+		this.el.setAttribute("opacity", 1 );
 	},
 
 	/*
@@ -102,6 +98,8 @@ AFRAME.registerComponent('meeting-button', {
 
 			angle += step;
 		}
+
+		window.APP.hubChannel.sendMessage(this.data.message, "chat");
 	},
 });
 
