@@ -3,7 +3,7 @@
  */
 AFRAME.registerComponent('teleport-button', {
 	schema: {
-		target: { type:'selector', default:"#button1", },
+		target: { type:'selector', default:null, },
 		offset: { type:'vec3', default:{ x:0, y:0, z:0 } },
 	},
 
@@ -16,12 +16,11 @@ AFRAME.registerComponent('teleport-button', {
 
 	onClick: function(evt)
 	{
-		if (!this.data.target)
-			return;
+		const target = this.data.target || this.el;
 
 		const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
 
-		this.data.target.object3D.getWorldPosition(this.target);
+		target.object3D.getWorldPosition(this.target);
 		this.target.add(this.data.offset);
 
 		console.log("teleport-button: ", this.target);
