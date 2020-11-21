@@ -1,0 +1,83 @@
+<!-- this is for the Amstel house
+include "template.js"
+include "teleport-button.js"
+-->
+
+<template id="up-button">
+	<a-cone
+		teleport-button="offset: 0 2.9 +1;"
+		id="teleporter"
+		class="interactable"
+		height="0.2"
+		radius-top="0.0"
+		radius-bottom="0.1"
+		segments-radial="5"
+		material="color: #800080;"
+		tags="singleActionButton: true;"
+		is-remote-hover-target
+		animation="
+			property: rotation;
+			to: 0 360 0;
+			easing: linear;
+			loop: true;
+			dur: 10000;
+		"
+	>
+		<a-entity
+			text="value: UP; align: center;"
+			rotation="0 180 0"
+			position="0 0.2 0"
+		></a-entity>
+		<a-entity
+			text="value: UP; align: center;"
+			position="0 0.2 0"
+		></a-entity>
+        </a-cone>
+</template>
+<template id="down-button">
+	<a-cone
+		teleport-button="offset: 0 -2.9 +1;"
+		id="teleporter"
+		class="interactable"
+		height="0.2"
+		radius-top="0.1"
+		radius-bottom="0.0"
+		segments-radial="5"
+		material="color: #800080;"
+		tags="singleActionButton: true;"
+		is-remote-hover-target
+		animation="
+			property: rotation;
+			to: 0 -360 0;
+			easing: linear;
+			loop: true;
+			dur: 10000;
+		"
+	>
+		<a-entity
+			text="value: DOWN; align: center;"
+			rotation="0 180 0"
+			position="0 0.2 0"
+		></a-entity>
+		<a-entity
+			text="value: DOWN; align: center;"
+			position="0 0.2 0"
+		></a-entity>
+        </a-cone>
+</template>
+
+<a-entity template="src:#down-button" position="1.7 15.2 -3"></a-entity>
+
+<a-entity template="src:#up-button"   position="1.3 12.3 -3"></a-entity>
+<a-entity template="src:#down-button" position="1.7 12.3 -3"></a-entity>
+
+<a-entity template="src:#up-button"   position="1.3 9.5 -3"></a-entity>
+<a-entity template="src:#down-button" position="1.7 9.5 -3"></a-entity>
+
+<a-entity template="src:#up-button"   position="1.3 6.5 -3"></a-entity>
+<a-entity template="src:#down-button" position="1.7 6.5 -3"></a-entity>
+
+<a-entity template="src:#up-button"   position="1.3 4.0 -3"></a-entity>
+<a-entity template="src:#down-button" position="1.7 4.0 -3"></a-entity>
+
+<a-entity template="src:#up-button"   position="1.3 1.2 -3"></a-entity>
