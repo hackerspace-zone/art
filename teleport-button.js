@@ -18,12 +18,18 @@ AFRAME.registerComponent('teleport-button', {
 	{
 		const target = this.data.target || this.el;
 
-		const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
-
 		target.object3D.getWorldPosition(this.target);
 		this.target.add(this.data.offset);
 
 		console.log("teleport-button: ", this.target);
-		player.teleportTo(this.target);
+
+		teleport(this.target.x, this.target.y, this.target.z);
 	},
 });
+
+function teleport(x,y,z)
+{
+	const player = AFRAME.scenes[0].systems["hubs-systems"].characterController;
+	const target = new THREE.Vector3(x,y,z);
+	player.teleportTo(target);
+}
