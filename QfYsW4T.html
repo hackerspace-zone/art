@@ -16,14 +16,14 @@ include "return-home.js"
 -->
 
 <a-box
-teleport-button="target: #button1; offset: 0 17 0;"
+teleport-button="target: #button1; offset: 0 -0.1 0;"
 id="teleporter"
 class="interactable"
 position="12.0 1.0 -2.0"
 width="0.2"
 height="0.2"
 depth="0.2"
-material="color: #800080;"
+material="color: #FF69B4;"
 tags="singleActionButton: true;"
 is-remote-hover-target
 animation="
@@ -34,35 +34,6 @@ animation="
 	dur: 10000;
 "
 >
-<a-entity
-	text="value: TELEPORT; align: center;"
-	rotation="0 90 0"
-	position="0.0 17.0 0.0"
-></a-entity>
-
-</a-box>
-<a-entity
-position="45 3.8 0"
->
-<a-box
-class="interactable"
-id="button1"
-width="0.2"
-height="0.2"
-depth="0.2"
-material="color: #800040;"
-meeting-button="cooldown: 1000;"
-player-move
-tags="singleActionButton: true;"
-is-remote-hover-target
-animation="
-	property: rotation;
-	to: 0 -360 0;
-	easing: linear;
-	loop: true;
-	dur: 3000;
-"
-></a-box>
 <a-entity
 position="0 0.2 0"
 scale="2 2 2"
@@ -71,15 +42,56 @@ animation="
 	to: 0 360 0;
 	easing: linear;
 	loop: true;
+	dur: 20000;
+"
+>
+<a-entity
+	text="value: GO UP; align: center; color: #FF69B4;"
+	rotation="0 180 0"
+></a-entity>
+<a-entity
+	text="value: GO UP; align: center; color: #FF69B4;"
+></a-entity>
+
+</a-box>
+<a-entity
+position="12.0 16 0"
+>
+<a-box
+teleport-button="target: #teleporter; offset: 0 -0.1 0;"
+class="interactable"
+id="button1"
+width="0.4"
+height="0.4"
+depth="0.4"
+material="color: #FF1493;"
+tags="singleActionButton: true;"
+is-remote-hover-target
+animation="
+	property: rotation;
+	to: 0 360 0;
+	easing: linear;
+	loop: true;
+	dur: 10000;
+"
+></a-box>
+<a-entity
+position="0 0.3 0"
+scale="3 3 3"
+animation="
+	property: rotation;
+	to: 0 360 0;
+	easing: linear;
+	loop: true;
 	dur: 10000;
 "
 >
 <a-entity
-	text="value: EMERGENCY MEETING; align: center;"
+	text="value: GO DOWN; align: center; color: #FF1493"
 	rotation="0 180 0"
 ></a-entity>
 <a-entity
-	text="value: EMERGENCY MEETING; align: center;"
+	text="value: GO DOWN; align: center; color: #FF1493;"
 ></a-entity>
 </a-entity>
 </a-entity>
