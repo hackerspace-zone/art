@@ -16,72 +16,108 @@ include "return-home.js"
 -->
 
 <a-box
-teleport-button="target: #button1; offset: 0 17 0;"
-id="teleporter"
-class="interactable"
-position="12.0 1.0 -2.0"
-width="0.2"
-height="0.2"
-depth="0.2"
-material="color: #800080;"
-tags="singleActionButton: true;"
-is-remote-hover-target
-animation="
-	property: rotation;
-	to: 0 360 0;
-	easing: linear;
-	loop: true;
-	dur: 10000;
-"
+	teleport-button="target: #teleport-down; offset: 1 0 0;"
+	id="teleport-up"
+	class="interactable"
+	position="12.0 1.0 -2.0"
+	width="0.2"
+	height="0.2"
+	depth="0.2"
+	material="color: #800080;"
+	tags="singleActionButton: true;"
+	is-remote-hover-target
+	animation="
+		property: rotation;
+		to: 0 360 0;
+		easing: linear;
+		loop: true;
+		dur: 10000;
+	"
 >
-<a-entity
-	text="value: TELEPORT; align: center;"
-	rotation="0 90 0"
-	position="0.0 17.0 0.0"
-></a-entity>
-
+	<a-entity
+		text="value: UP; align: center;"
+		rotation="0 0 0"
+		position="0.0 0.2 0.0"
+	></a-entity>
+	<a-entity
+		text="value: UP; align: center;"
+		rotation="0 180 0"
+		position="0.0 0.2 0.0"
+	></a-entity>
 </a-box>
-<a-entity
-position="45 3.8 0"
->
+
 <a-box
-class="interactable"
-id="button1"
-width="0.2"
-height="0.2"
-depth="0.2"
-material="color: #800040;"
-meeting-button="cooldown: 1000;"
-player-move
-tags="singleActionButton: true;"
-is-remote-hover-target
-animation="
-	property: rotation;
-	to: 0 -360 0;
-	easing: linear;
-	loop: true;
-	dur: 3000;
-"
-></a-box>
-<a-entity
-position="0 0.2 0"
-scale="2 2 2"
-animation="
-	property: rotation;
-	to: 0 360 0;
-	easing: linear;
-	loop: true;
-	dur: 10000;
-"
+	teleport-button="target: #teleport-up; offset: -1 0 0;"
+	id="teleport-down"
+	class="interactable"
+	position="5 6.5 0"
+	width="0.2"
+	height="0.2"
+	depth="0.2"
+	material="color: #800080;"
+	tags="singleActionButton: true;"
+	is-remote-hover-target
+	animation="
+		property: rotation;
+		to: 0 360 0;
+		easing: linear;
+		loop: true;
+		dur: 10000;
+	"
 >
+	<a-entity
+		text="value: DOWN; align: center;"
+		rotation="0 0 0"
+		position="0.0 0.2 0.0"
+	></a-entity>
+	<a-entity
+		text="value: DOWN; align: center;"
+		rotation="0 180 0"
+		position="0.0 0.2 0.0"
+	></a-entity>
+</a-box>
+
 <a-entity
-	text="value: EMERGENCY MEETING; align: center;"
-	rotation="0 180 0"
-></a-entity>
-<a-entity
-	text="value: EMERGENCY MEETING; align: center;"
-></a-entity>
-</a-entity>
+	position="5.0 1.5 -1.0"
+>
+	<a-box
+		class="interactable"
+		id="emergency-button"
+		width="0.2"
+		height="0.2"
+		depth="0.2"
+		material="color: #800040;"
+		meeting-button="cooldown: 1000; radius: 3;"
+		player-move
+		tags="singleActionButton: true;"
+		is-remote-hover-target
+		animation="
+			property: rotation;
+			to: 0 -360 0;
+			easing: linear;
+			loop: true;
+			dur: 3000;
+		"
+	></a-box>
+	<a-entity
+		position="0 0.2 0"
+		scale="2 2 2"
+		animation="
+			property: rotation;
+			to: 0 360 0;
+			easing: linear;
+			loop: true;
+			dur: 10000;
+		"
+	>
+		<a-entity
+			text="value: EMERGENCY MEETING; align: center;"
+			rotation="0 180 0"
+		></a-entity>
+		<a-entity
+			text="value: EMERGENCY MEETING; align: center;"
+		></a-entity>
+	</a-entity>
 </a-entity>
 
 <a-entity
