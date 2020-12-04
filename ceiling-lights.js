@@ -81,9 +81,11 @@ AFRAME.registerComponent('ceilinglights', {
 	tick: function(time, dt)
 	{
 		// convert from ms to seconds
-        dt /= 1000;
-        console.log("TIME")
-        console.log(dt)
+        dt /= 10000;
+	if (dt > 1) {
+		console.log("TIME");
+		console.log(dt);
+	}
 
 		var pos = this.el.object3D.position;
         var min_dist = 10000;
