@@ -43,20 +43,30 @@ AFRAME.registerComponent('player-map', {
 			// new player, create a child for it
 			let div = document.createElement('a-entity');
 			div.setAttribute('position', pos);
-			div.setAttribute('rotation', rot);
 
 			let cone = document.createElement('a-cone');
-			cone.setAttribute('height', 0.5);
-			cone.setAttribute('radius-top', 0.05);
-			cone.setAttribute('radius-bottom', 0.3);
+			cone.setAttribute('height', 2.5);
+			cone.setAttribute('radius-top', 0.1);
+			cone.setAttribute('radius-bottom', 2);
 			cone.setAttribute('segments-radial', 5);
-			cone.setAttribute('material', "color: #800080");
-			if (!is_self)
-			cone.setAttribute('rotation', {
-				"x": -90,
-				"y": 0,
-				"z": 0,
-			});
+			if (is_self)
+			{
+				cone.setAttribute('material', "color: #00FF00");
+			} else {
+				cone.setAttribute('material', "color: #800080");
+				cone.setAttribute('rotation', {
+					"x": -90,
+					"y": 0,
+					"z": 0,
+				});
+				cone.setAttribute('tags', 'singleActionButton:true');
+				cone.setAttribute('is-remote-hover-target', "");
+				cone.setAttribute('teleport-button', {
+					"target": "#" + id,
+					"offset": "1 0 0",
+				});
+				cone.setAttribute('class', "interactable");
+			}
 
 			// add the name above it?
 
@@ -64,7 +74,7 @@ AFRAME.registerComponent('player-map', {
 			div.appendChild(cone);
 			this.el.appendChild(div);
 			this.players[id] = div;
-			console.log("player-map: creating", player);
+			console.log("player-map: creating", player, div);
 		}
 
 		// delete any players who no longer exist
