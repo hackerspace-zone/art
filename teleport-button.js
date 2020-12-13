@@ -3,7 +3,7 @@
  */
 AFRAME.registerComponent('teleport-button', {
 	schema: {
-		target: { type:'string', default:null, },
+		target: { type:'string', default:"", },
 		offset: { type:'vec3', default:{ x:0, y:0, z:0 } },
 	},
 
