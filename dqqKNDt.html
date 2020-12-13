@@ -8,6 +8,7 @@ include "player-move.js"
 include "meeting-button.js"
 include "teleport-button.js"
 include "return-home.js"
+include "player-map.js"
 -->
 
 <!-- compass rose
@@ -17,6 +18,12 @@ include "return-home.js"
 	<a-box width="0.1" height="0.1" depth="1.0" position="0 0 0.5" material="color: #0000ff"></a-box>
 </a-entity>
 -->
+
+<a-entity
+	player-map
+	scale="0.2 0.2 0.2"
+	position="0 1 2"
+></a-entity>
 
 	<a-box
 		teleport-button="target: #button1; offset: 2 0 0;"
