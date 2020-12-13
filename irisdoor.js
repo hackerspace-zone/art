@@ -6,7 +6,8 @@ AFRAME.registerComponent('irisdoor', {
 		blades: {type:'number', default:11, }, // number of blades to draw
 		radius: {type:'number', default:2, }, // radius of the door blades
 		range: {type:'number', default:4, }, // m at which the door starts to open
-		speed: {type:'number', default:1000, }, // ms to open the door
+        speed: {type:'number', default:1000, }, // ms to open the door
+        color_blades: {type:'color', default:'#808080'} // color of door blades
 	},
 
 	init: function()
@@ -52,7 +53,7 @@ AFRAME.registerComponent('irisdoor', {
 			blade.setAttribute('height', height);
 			blade.setAttribute('depth', 0.01);
 			blade.setAttribute('material', {
-				color: '#808080',
+				color: this.data.color_blades
 			});
 
 			div.appendChild(blade);

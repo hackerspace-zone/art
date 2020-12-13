@@ -39,18 +39,18 @@ AFRAME.registerComponent('ceilinglights', {
                 light.setAttribute('height', this.data.height);
                 light.setAttribute('depth', this.data.depth);
                 if (i % 3 == 0) {
-                    light.setAttribute('material', {
-                        color: '#B239FF',
+                    light.setAttribute('material', { // hot pink
+                        color: '#ff69b4',
                     });
                 }
                 if (i % 3 == 1) {
-                    light.setAttribute('material', {
+                    light.setAttribute('material', { //deep purple
                         color: '#6800E7',
                     });
                 }
                 if (i % 3 == 2) {
                     light.setAttribute('material', {
-                        color: '#05B9EC',
+                        color: '#05B9EC', // teal
                     });
                 }
 
@@ -65,7 +65,8 @@ AFRAME.registerComponent('ceilinglights', {
 	{
         var counter = 0;
         theta = this.data.theta;
-        theta += 0.1;
+        diff = dt/10000;
+        theta += diff; //0.1;
         
         // Annimate the wave, columns are in sync
         var lights = this.el.children;
