@@ -1,6 +1,14 @@
 /*
- * Follow an player using the path finding
+ * Follow an player using a direct path
  */
+AFRAME.GLTFModelPlus.registerComponent("pet", "pet", el => {
+	// the GLTF is nested as:
+	// a-entity -> AvatarRoot -> AvatarNodes -> node
+	// so we have to attach the follower attribute to the
+	// third parent.
+	el.parentEl.parentEl.parentEl.setAttribute("pet-follower", { });
+});
+
 AFRAME.registerComponent('pet-follower', {
 	schema: {
 		target: {type:'selector', default:'#avatar-rig', },
@@ -15,12 +23,16 @@ AFRAME.registerComponent('pet-follower', {
 		this.pos = new THREE.Vector3(0,0,0)
 		this.delta = new THREE.Vector3(0,0,0)
 
-		console.log("pet-follower: following ", this.data.target);
+		console.log("pet-follower: el=", this.el, " following ", this.data.target, "gltf=", this.data.gltf);
 	},
 
 	tick: function(time, dt)
 	{
 		if (!this.data.target)
+			return;
+
+		// only the owner should update it
+		if (NAF.utils.getNetworkOwner(this.el) != NAF.clientId)
 			return;
 
 		const target = this.data.target.object3D;
