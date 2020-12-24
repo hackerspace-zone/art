@@ -81,7 +81,7 @@ include "pet-follower.js"
 </a-box>
 
 <a-entity
-	position="5.0 1.5 -1.0"
+	position="6.0 1.0 -2.2"
 >
 	<a-box
 		class="interactable"
@@ -89,18 +89,11 @@ include "pet-follower.js"
 		width="0.2"
 		height="0.2"
 		depth="0.2"
-		material="color: #800040;"
+        material="color: #800040; transparent: true; opacity: 0.0;"
 		meeting-button="cooldown: 1000; radius: 3;"
 		player-move
 		tags="singleActionButton: true;"
 		is-remote-hover-target
-		animation="
-			property: rotation;
-			to: 0 -360 0;
-			easing: linear;
-			loop: true;
-			dur: 3000;
-		"
 	></a-box>
 	<a-entity
 		position="0 0.2 0"
@@ -124,16 +117,16 @@ include "pet-follower.js"
 </a-entity>
 
 <a-entity
-id="door_elevator"
-position="15.0 1.5 -1.5"
-rotation="0 90 0"
-irisdoor="blades:6; radius:2; color_blades:#05B9EC;"
+    id="door_elevator"
+    position="15.5 1.5 -1.5"
+    rotation="0 90 0"
+    irisdoor="blades:6; radius:2; color_blades:#05B9EC;"
 ></a-entity>
 
 <a-entity
-id="backroom_ceiling_lights"
-position="-3.3 3 -12"
-ceilinglights="lights_row:25; lights_col:4;"
+    id="backroom_ceiling_lights"
+    position="-3.3 3 -12"
+    ceilinglights="lights_row:25; lights_col:4;"
 ></a-entity>
 
 <a-entity
