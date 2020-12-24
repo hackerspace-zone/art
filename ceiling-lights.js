@@ -9,14 +9,18 @@ AFRAME.registerComponent('ceilinglights', {
         height: {type:'number', default:.7, }, // height of each light
         depth: {type:'number', default:.1, }, // depth of each light
 		range: {type:'number', default:5, }, // m at which the person can trigger animation
-        speed: {type:'number', default:1000, }, // ms to open the door
-        theta: {type:'number', default:0, }
+        speed: {type:'number', default:1000, }, // to adjust the delta time for animation speed
+        theta: {type:'number', default:0, }, // global variable for changing angle
+        color_boxes: {type:'array', default: ['#808080']} , // array of colors to randomly choose from
+        animation: {type: 'boolean', default: false}, // whether boxes will animate in rotation
 	},
 
 	init: function()
 	{
         console.log("CREATING LIGHTS");
         var counter = 0;
+        var colors = this.data.color_boxes; //['#ff69b4', '#6800E7', '#05B9EC'] pink purple teal
+        var is_animated = this.data.animation;        
 
 		// create rows and columns of lights
         for(let j = 0 ; j < this.data.lights_col ; j++)
@@ -38,19 +42,17 @@ AFRAME.registerComponent('ceilinglights', {
                 light.setAttribute('width', this.data.width);
                 light.setAttribute('height', this.data.height);
                 light.setAttribute('depth', this.data.depth);
-                if (i % 3 == 0) {
-                    light.setAttribute('material', { // hot pink
-                        color: '#ff69b4',
-                    });
-                }
-                if (i % 3 == 1) {
-                    light.setAttribute('material', { //deep purple
-                        color: '#6800E7',
-                    });
-                }
-                if (i % 3 == 2) {
-                    light.setAttribute('material', {
-                        color: '#05B9EC', // teal
+                num_colors = colors.length;
+                box_color = colors[Math.floor(Math.random() * num_colors)];
+                light.setAttribute('material', { // hot pink
+                    color: box_color,
+                });
+                if (is_animated){
+                    light.setAttribute('animation', {
+                        property: 'rotation',
+                        to: {x: 360, y: 360, z:360},
+                        dur: 10000,
+                        loop: true,
                     });
                 }
 
@@ -64,8 +66,9 @@ AFRAME.registerComponent('ceilinglights', {
 	tick: function(time, dt)
 	{
         var counter = 0;
-        theta = this.data.theta;
-        diff = dt/10000;
+        var theta = this.data.theta;
+        var speed_adjust = this.data.speed;
+        diff = dt/speed_adjust;
         theta += diff; //0.1;
         
         // Annimate the wave, columns are in sync

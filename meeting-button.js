@@ -35,8 +35,7 @@ AFRAME.registerComponent('meeting-button', {
 
 		console.log("activated");
 		this.el.emit("activated");
-
-		this.el.setAttribute("opacity", 0 );
+		//this.el.setAttribute("opacity", 0 );
 
 		// move everyone to a circle around it
 		this.meeting();
