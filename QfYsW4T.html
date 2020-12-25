@@ -22,7 +22,7 @@ include "pet-follower.js"
 	teleport-button="target: #teleport-down; offset: 1 0 0;"
 	id="teleport-up"
 	class="interactable"
-	position="12.0 1.0 -2.0"
+	position="12.0 1.3 -2.0"
 	width="0.2"
 	height="0.2"
 	depth="0.2"
@@ -40,12 +40,14 @@ include "pet-follower.js"
 	<a-entity
 		text="value: GO UP; align: center; color: #FF1493;"
 		rotation="0 0 0"
-		position="0.0 0.2 0.0"
+        position="0.0 0.2 0.0"
+        scale = "2 2 2"
 	></a-entity>
 	<a-entity
 		text="value: GO UP; align: center; color: #FF1493;"
 		rotation="0 180 0"
-		position="0.0 0.2 0.0"
+        position="0.0 0.2 0.0"
+        scale = "2 2 2"
 	></a-entity>
 </a-box>
 
@@ -54,9 +56,9 @@ include "pet-follower.js"
 	id="teleport-down"
 	class="interactable"
 	position="5 6.5 0"
-	width="0.2"
-	height="0.2"
-	depth="0.2"
+	width="0.5"
+	height="0.5"
+	depth="0.5"
 	material="color: #800080;"
 	tags="singleActionButton: true;"
 	is-remote-hover-target
@@ -71,12 +73,14 @@ include "pet-follower.js"
 	<a-entity
 		text="value: GO DOWN; align: center; color: #FF1493;"
 		rotation="0 0 0"
-		position="0.0 0.2 0.0"
+        position="0.0 0.5 0.0"
+        scale = "3 3 3"
 	></a-entity>
 	<a-entity
 		text="value: GO DOWN; align: center; color: #FF1493;"
 		rotation="0 180 0"
-		position="0.0 0.2 0.0"
+        position="0.0 0.5 0.0"
+        scale = "3 3 3"
 	></a-entity>
 </a-box>
 
@@ -126,7 +130,7 @@ include "pet-follower.js"
 <a-entity
     id="backroom_ceiling_lights"
     position="-3.3 3 -12"
-    ceilinglights="lights_row:25; lights_col:4;"
+    ceilinglights="lights_row:25; lights_col:4; color_boxes:#ff69b4, #BE00FE, #05B9EC; speed:10000;"
 ></a-entity>
 
 <a-entity
