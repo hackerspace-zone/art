@@ -35,8 +35,7 @@ AFRAME.registerComponent('meeting-button', {
 
 		console.log("activated");
 		this.el.emit("activated");
-
-		this.el.setAttribute("opacity", 0 );
+		//this.el.setAttribute("opacity", 0 );
 
 		// move everyone to a circle around it
 		this.meeting();
@@ -55,7 +54,7 @@ AFRAME.registerComponent('meeting-button', {
 		// the cooldown timer has expired, mark it as available again
 		this.available = true;
 		this.el.emit("available");
-		this.el.setAttribute("opacity", 1 );
+		//this.el.setAttribute("opacity", 1 );
 	},
 
 	/*

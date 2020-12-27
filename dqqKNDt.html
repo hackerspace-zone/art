@@ -9,6 +9,7 @@ include "meeting-button.js"
 include "teleport-button.js"
 include "return-home.js"
 include "player-map.js"
+include "ceiling-lights.js"
 -->
 
 <!-- compass rose
@@ -57,7 +58,7 @@ include "player-map.js"
 		></a-entity>
         </a-box>
 <a-entity
-	position="45 3.8 0"
+	position="42 3.5 0"
 >
 	<a-box
 		class="interactable"
@@ -153,4 +154,10 @@ include "player-map.js"
 	position="21 2 -1"
 	rotation="0 90 0"
 	irisdoor="blades:9; radius:3;"
+></a-entity>
+
+<a-entity
+    id="backroom_ceiling_lights"
+    position="30 5 -12"
+    ceilinglights="lights_row:35; lights_col:3; color_boxes:#ff69b4, #BE00FE, #05B9EC, #FFDF00, #3EFF15; speed:5000; height:0.2; width: 0.2; depth: 0.2; animation: true;"
 ></a-entity>
