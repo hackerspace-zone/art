@@ -1,0 +1,163 @@
+<!-- this is for Holly's space
+include "pet-follower.js"
+include "follower.js"
+include "wasp.js"
+include "snake.js"
+include "irisdoor.js"
+include "player-move.js"
+include "meeting-button.js"
+include "teleport-button.js"
+include "return-home.js"
+include "player-map.js"
+include "ceiling-lights.js"
+-->
+
+<!-- compass rose
+<a-entity position="45 3.0 0" scale="0.5 0.5 0.5">
+	<a-box width="1.0" height="0.1" depth="0.1" position="0.5 0 0" material="color: #ff0000"></a-box>
+	<a-box width="0.1" height="1.0" depth="0.1" position="0 0.5 0" material="color: #00ff00"></a-box>
+	<a-box width="0.1" height="0.1" depth="1.0" position="0 0 0.5" material="color: #0000ff"></a-box>
+</a-entity>
+-->
+
+<a-entity
+	id="map"
+	player-map
+	scale="0.025 0.025 0.025"
+	position="-4 2 4"
+	rotation="-90 45 -90"
+></a-entity>
+
+	<a-box
+		teleport-button="target: #button1; offset: 2 0 0;"
+		id="teleporter"
+		class="interactable"
+		position="-1.5 1.5 2"
+		width="0.2"
+		height="0.2"
+		depth="0.2"
+		material="color: #800080;"
+		tags="singleActionButton: true;"
+		is-remote-hover-target
+		animation="
+			property: rotation;
+			to: 0 360 0;
+			easing: linear;
+			loop: true;
+			dur: 10000;
+		"
+	>
+		<a-entity
+			text="value: TELEPORT; align: center;"
+			rotation="0 180 0"
+			position="0 0.2 0"
+		></a-entity>
+		<a-entity
+			text="value: TELEPORT; align: center;"
+			position="0 0.2 0"
+		></a-entity>
+        </a-box>
+<a-entity
+	position="42 3.5 0"
+>
+	<a-box
+		class="interactable"
+		id="button1"
+		width="0.2"
+		height="0.2"
+		depth="0.2"
+		material="color: #800040;"
+		meeting-button="cooldown: 1000;"
+		player-move
+		tags="singleActionButton: true;"
+		is-remote-hover-target
+		animation="
+			property: rotation;
+			to: 0 -360 0;
+			easing: linear;
+			loop: true;
+			dur: 3000;
+		"
+	></a-box>
+	<a-entity
+		position="0 0.2 0"
+		scale="2 2 2"
+		animation="
+			property: rotation;
+			to: 0 360 0;
+			easing: linear;
+			loop: true;
+			dur: 10000;
+		"
+	>
+		<a-entity
+			text="value: EMERGENCY MEETING; align: center;"
+			rotation="0 180 0"
+		></a-entity>
+		<a-entity
+			text="value: EMERGENCY MEETING; align: center;"
+		></a-entity>
+	</a-entity>
+</a-entity>
+
+<!-- coordinates are negative away from camera, altitude above ground, positive to the left -->
+<a-entity
+	id="snake"
+	position="45 9 0"
+	scale="1 1 1"
+	rotation="-180 0 0"
+	animation="
+		property: rotation;
+		to: 180 0 0;
+		easing: linear;
+		loop: true;
+		dur: 90000;
+	"
+>
+<a-entity
+	rotation="0 0 0"
+	animation="
+		property: rotation;
+		to: 0 360 0;
+		easing: linear;
+		loop: true;
+		dur: 110000;
+	"
+>
+	<a-entity
+		snake="latest:#wasp; dim:3; speed:500;"
+	></a-entity>
+
+<!--
+<a-entity id="wasp"></a-entity>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+<a-sphere radius="0.02" color="red" follower="target:#wasp"></a-sphere>
+-->
+</a-entity>
+</a-entity>
+
+<a-entity
+	id="door1"
+	position="-7.5 2 -1.2"
+	rotation="0 90 0"
+	irisdoor="blades:11; radius:3;"
+></a-entity>
+
+<a-entity
+	id="door2"
+	position="21 2 -1"
+	rotation="0 90 0"
+	irisdoor="blades:9; radius:3;"
+></a-entity>
+
+<a-entity
+    id="backroom_ceiling_lights"
+    position="30 5 -12"
+    ceilinglights="lights_row:35; lights_col:3; color_boxes:#ff69b4, #BE00FE, #05B9EC, #FFDF00, #3EFF15; speed:5000; height:0.2; width: 0.2; depth: 0.2; animation: true;"
+></a-entity>
